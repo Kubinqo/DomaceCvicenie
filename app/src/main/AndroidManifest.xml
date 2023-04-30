@@ -12,7 +12,13 @@
         android:theme="@style/Theme.DomaceCviceniaSVlastnouVahou"
         tools:targetApi="31">
         <activity
+            android:name=".vyber_pocet_klikov"
+            android:exported="false" />
+        <activity
             android:name=".Apka"
+            android:exported="false" />
+        <activity
+            android:name=".VyberPohlavia"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
