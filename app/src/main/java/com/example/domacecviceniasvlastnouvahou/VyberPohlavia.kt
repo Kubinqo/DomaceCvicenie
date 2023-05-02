@@ -1,9 +1,18 @@
 package com.example.domacecviceniasvlastnouvahou
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
+import android.animation.PropertyValuesHolder
 import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.view.View
+import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.ImageView
 
@@ -21,46 +30,87 @@ class VyberPohlavia : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_vyber_pohlavia)
 
-        //inicializacia
+        //Nastavenie premennych pre muz, zena a tlacidlo Dalej
         muz = findViewById(R.id.pohlavieMuzView)
         zena = findViewById(R.id.pohlavieZenaView)
         buttonDalej = findViewById(R.id.dalejBtn)
 
-        //kontrola ci je muz oznaceny
+        //Tlacidlo je defaultne deaktivovane
+        buttonDalej.alpha = 0.5f
+        buttonDalej.isEnabled = false
+
+        //Listener pre obrazok muza
         muz.setOnClickListener {
+            if (!isImageMuzSelected) {
+                //Ak je obrazok muza zvacseny, zmensi sa a tlacidlo sa aktivuje, inak sa zvacsi a obrazok zeny sa zmensi
+                scaleImage(muz)
+                resetImage(zena)
+                buttonDalej.alpha = 1f
+                buttonDalej.isEnabled = true
+            } else {
+                resetImage(muz)
+                buttonDalej.alpha = 0.5f
+                buttonDalej.isEnabled = false
+            }
+            //Zmena hodnot pre kontrolu zvacsenia obrazkov
             isImageMuzSelected = !isImageMuzSelected
-            if (isImageMuzSelected) {
-                muz.setBackgroundResource(R.drawable.oznacenie_obrysu)
-                isImageZenaSelected = false
-                zena.setBackgroundResource(R.drawable.odznacenie_obrysu)
-                buttonDalej.setTextColor(Color.WHITE)
-                buttonDalej.isEnabled = true
-            } else {
-                muz.setBackgroundResource(R.drawable.odznacenie_obrysu)
-                buttonDalej.setTextColor(Color.GRAY)
-                buttonDalej.isEnabled = false
-            }
+            isImageZenaSelected = false
+            checkImagesScaled()
         }
 
+        //Listener pre obrazok zeny
         zena.setOnClickListener {
-            isImageZenaSelected = !isImageZenaSelected
-            if (isImageZenaSelected) {
-                zena.setBackgroundResource(R.drawable.oznacenie_obrysu)
-                isImageMuzSelected = false
-                muz.setBackgroundResource(R.drawable.odznacenie_obrysu)
-                buttonDalej.setTextColor(Color.WHITE)
+            if (!isImageZenaSelected) {
+                //Ak je obrazok zeny zvacseny, zmensi sa a tlacidlo sa aktivuje, inak sa zvacsi a obrazok muza sa zmensi
+                scaleImage(zena)
+                resetImage(muz)
+                buttonDalej.alpha = 1f
                 buttonDalej.isEnabled = true
             } else {
-                zena.setBackgroundResource(R.drawable.odznacenie_obrysu)
-                buttonDalej.setTextColor(Color.GRAY)
+                resetImage(zena)
+                buttonDalej.alpha = 0.5f
                 buttonDalej.isEnabled = false
             }
+            //Zmena hodnot pre kontrolu zvacsenia obrazkov
+            isImageZenaSelected = !isImageZenaSelected
+            isImageMuzSelected = false
+            checkImagesScaled()
         }
 
-        buttonDalej.setOnClickListener() {
+        //Listener pre tlacidlo pre prechod na dalsiu aktivitu
+        buttonDalej.setOnClickListener {
             val intent = Intent(this, VyberPocetKlikov::class.java)
             startActivity(intent)
         }
 
+    }
+
+    //Funkcia, ktora zmensi velkost ImageView pomocou animacie
+    //Ak nie, tlacidlo "Dalej" bude deaktivovane.
+    private fun scaleImage(imageView: ImageView) {
+        val animSet = AnimatorSet()
+        val scaleX = ObjectAnimator.ofFloat(imageView, "scaleX", 0.8f)
+        val scaleY = ObjectAnimator.ofFloat(imageView, "scaleY", 0.8f)
+        animSet.playTogether(scaleX, scaleY)
+        animSet.duration = 300
+        animSet.start()
+    }
+
+    //Funkcia, ktora resetuje velkosť ImageView pomocou animacie
+    private fun resetImage(imageView: ImageView) {
+        val animSet = AnimatorSet()
+        val scaleX = ObjectAnimator.ofFloat(imageView, "scaleX", 1f)
+        val scaleY = ObjectAnimator.ofFloat(imageView, "scaleY", 1f)
+        animSet.playTogether(scaleX, scaleY)
+        animSet.duration = 300
+        animSet.start()
+    }
+
+    //Funkcia kontroluje, ci je aspon jeden z obrazkov "Muz" a "Zena" zvacseny.
+    private fun checkImagesScaled() {
+        if (!isImageMuzSelected && !isImageZenaSelected) {
+            buttonDalej.alpha = 0.5f
+            buttonDalej.isEnabled = false
+        }
     }
 }

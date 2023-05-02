@@ -1,5 +1,7 @@
 package com.example.domacecviceniasvlastnouvahou
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
@@ -27,64 +29,104 @@ class VyberPocetKlikov : AppCompatActivity() {
         pokrocily = findViewById(R.id.pokrocilyView)
         buttonHotovo = findViewById(R.id.hotovoBtn)
 
+        //Tlacidlo je defaultne deaktivovane
+        buttonHotovo.alpha = 0.5f
+        buttonHotovo.isEnabled = false
+
+        //Listener pre obrazok zaciatocnik
         zaciatocnik.setOnClickListener {
+            if (!isImageZaciatocnikSelected) {
+                scaleImage(zaciatocnik)
+                resetImage(strednePokrocily)
+                resetImage(pokrocily)
+                buttonHotovo.alpha = 1f
+                buttonHotovo.isEnabled = true
+            } else {
+                resetImage(zaciatocnik)
+                buttonHotovo.alpha = 0.5f
+                buttonHotovo.isEnabled = false
+            }
             isImageZaciatocnikSelected = !isImageZaciatocnikSelected
-            if (isImageZaciatocnikSelected) {
-                zaciatocnik.setBackgroundResource(R.drawable.oznacenie_obrysu)
-                isImageStrednePokrocilySelected = false
-                isImagePokrocilySelected = false
-                strednePokrocily.setBackgroundResource(R.drawable.odznacenie_obrysu)
-                pokrocily.setBackgroundResource(R.drawable.odznacenie_obrysu)
-                buttonHotovo.setTextColor(Color.WHITE)
-                buttonHotovo.isEnabled = true
-            } else {
-                zaciatocnik.setBackgroundResource(R.drawable.odznacenie_obrysu)
-                buttonHotovo.setTextColor(Color.GRAY)
-                buttonHotovo.isEnabled = false
-            }
+            isImageStrednePokrocilySelected = false
+            isImagePokrocilySelected = false
+            checkImagesScaled()
         }
 
+        //Listener pre obrazok stredne pokrocily
         strednePokrocily.setOnClickListener {
+            if (!isImageStrednePokrocilySelected) {
+                scaleImage(strednePokrocily)
+                resetImage(zaciatocnik)
+                resetImage(pokrocily)
+                buttonHotovo.alpha = 1f
+                buttonHotovo.isEnabled = true
+            } else {
+                resetImage(strednePokrocily)
+                buttonHotovo.alpha = 0.5f
+                buttonHotovo.isEnabled = false
+            }
             isImageStrednePokrocilySelected = !isImageStrednePokrocilySelected
-            if (isImageStrednePokrocilySelected) {
-                strednePokrocily.setBackgroundResource(R.drawable.oznacenie_obrysu)
-                isImageZaciatocnikSelected = false
-                isImagePokrocilySelected = false
-                zaciatocnik.setBackgroundResource(R.drawable.odznacenie_obrysu)
-                pokrocily.setBackgroundResource(R.drawable.odznacenie_obrysu)
-                buttonHotovo.setTextColor(Color.WHITE)
-                buttonHotovo.isEnabled = true
-            } else {
-                strednePokrocily.setBackgroundResource(R.drawable.odznacenie_obrysu)
-                buttonHotovo.setTextColor(Color.GRAY)
-                buttonHotovo.isEnabled = false
-            }
+            isImageZaciatocnikSelected = false
+            isImagePokrocilySelected = false
+            checkImagesScaled()
         }
 
+        //Listener pre obrazok pokrocily
         pokrocily.setOnClickListener {
-            isImagePokrocilySelected = !isImagePokrocilySelected
-            if (isImagePokrocilySelected) {
-                pokrocily.setBackgroundResource(R.drawable.oznacenie_obrysu)
-                isImageZaciatocnikSelected = false
-                isImageStrednePokrocilySelected = false
-                zaciatocnik.setBackgroundResource(R.drawable.odznacenie_obrysu)
-                strednePokrocily.setBackgroundResource(R.drawable.odznacenie_obrysu)
-                buttonHotovo.setTextColor(Color.WHITE)
+            if (!isImagePokrocilySelected) {
+                scaleImage(pokrocily)
+                resetImage(zaciatocnik)
+                resetImage(strednePokrocily)
+                buttonHotovo.alpha = 1f
                 buttonHotovo.isEnabled = true
             } else {
-                pokrocily.setBackgroundResource(R.drawable.odznacenie_obrysu)
-                buttonHotovo.setTextColor(Color.GRAY)
+                resetImage(pokrocily)
+                buttonHotovo.alpha = 0.5f
                 buttonHotovo.isEnabled = false
             }
+            isImagePokrocilySelected = !isImagePokrocilySelected
+            isImageZaciatocnikSelected = false
+            isImageStrednePokrocilySelected = false
+            checkImagesScaled()
         }
 
-
+        //Listener pre tlacidlo pre prechod na dalsiu aktivitu
         buttonHotovo.setOnClickListener() {
             val intent = Intent(this, Apka::class.java)
             startActivity(intent)
         }
 
-
-
     }
+
+    //Funkcia, ktora zmensi velkost ImageView pomocou animacie
+    //Ak nie, tlacidlo "Dalej" bude deaktivovane.
+    private fun scaleImage(imageView: ImageView) {
+        val animSet = AnimatorSet()
+        val scaleX = ObjectAnimator.ofFloat(imageView, "scaleX", 0.8f)
+        val scaleY = ObjectAnimator.ofFloat(imageView, "scaleY", 0.8f)
+        animSet.playTogether(scaleX, scaleY)
+        animSet.duration = 300
+        animSet.start()
+    }
+
+    //Funkcia, ktora resetuje velkosť ImageView pomocou animacie
+    private fun resetImage(imageView: ImageView) {
+        val animSet = AnimatorSet()
+        val scaleX = ObjectAnimator.ofFloat(imageView, "scaleX", 1f)
+        val scaleY = ObjectAnimator.ofFloat(imageView, "scaleY", 1f)
+        animSet.playTogether(scaleX, scaleY)
+        animSet.duration = 300
+        animSet.start()
+    }
+
+    //Funkcia kontroluje, ci je aspon jeden z obrazkov "Muz" a "Zena" zvacseny.
+    private fun checkImagesScaled() {
+        if (!isImageZaciatocnikSelected && !isImageStrednePokrocilySelected && !isImagePokrocilySelected) {
+            buttonHotovo.alpha = 0.5f
+            buttonHotovo.isEnabled = false
+        }
+    }
+
+
+
 }
