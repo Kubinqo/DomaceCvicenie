@@ -12,7 +12,7 @@
         android:theme="@style/Theme.DomaceCviceniaSVlastnouVahou"
         tools:targetApi="31">
         <activity
-            android:name=".vyber_pocet_klikov"
+            android:name=".VyberPocetKlikov"
             android:exported="false" />
         <activity
             android:name=".Apka"
