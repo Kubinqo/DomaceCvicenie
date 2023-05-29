@@ -83,6 +83,17 @@ class VyberPohlavia : AppCompatActivity() {
             startActivity(intent)
         }
 
+        // Kontrola spustenia aktivity VyberPohlavia
+        if (!AppStartManager.hasVyberPohlaviaStarted(this)) {
+            AppStartManager.setVyberPohlaviaStarted(this)
+        } else {
+            // Aktivita už bola spustená, takže môžete pokračovať s aktuálnou aktivitou
+            val intent = Intent(this, VyberPocetKlikov::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+
     }
 
     //Funkcia, ktora zmensi velkost ImageView pomocou animacie

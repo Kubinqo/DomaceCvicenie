@@ -96,6 +96,16 @@ class VyberPocetKlikov : AppCompatActivity() {
             startActivity(intent)
         }
 
+        // Kontrola spustenia aktivity VyberPocetKlikov
+        if (!AppStartManager.hasVyberPocetKlikovStarted(this)) {
+            AppStartManager.setVyberPocetKlikovStarted(this)
+        } else {
+            // Aktivita už bola spustená, takže môžete pokračovať s aktuálnou aktivitou
+            val intent = Intent(this, Apka::class.java)
+            startActivity(intent)
+            finish()
+        }
+
     }
 
     //Funkcia, ktora zmensi velkost ImageView pomocou animacie
