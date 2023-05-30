@@ -36,7 +36,8 @@
         android:layout_marginEnd="30dp"
         app:layout_constraintBottom_toTopOf="@+id/nastaveniaTextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/settings" />
+        app:srcCompat="@drawable/settings"
+        android:clickable="true" />
 
     <TextView
         android:id="@+id/nastaveniaTextView"
@@ -116,5 +117,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/cele_telo" />
+        app:srcCompat="@drawable/cele_telo"
+        android:clickable="true"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
