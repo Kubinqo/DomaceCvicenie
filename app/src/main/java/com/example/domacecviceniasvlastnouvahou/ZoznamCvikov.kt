@@ -4,7 +4,6 @@ import Cvik
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -46,11 +45,6 @@ class ZoznamCvikov : AppCompatActivity() {
         cviky.add(Cvik(R.drawable.push_ups, "Push-ups", "x16", "push_ups"))
         cviky.add(Cvik(R.drawable.triceps_dips, "Triceps dips", "x12", "triceps_dips"))
         cviky.add(Cvik(R.drawable.squat, "Squats", "x20", "squats"))
-
-        cviky.forEach { cvik ->
-            Log.d("VIDEO_NAME", cvik.videoName)
-        }
-
         return cviky
     }
 

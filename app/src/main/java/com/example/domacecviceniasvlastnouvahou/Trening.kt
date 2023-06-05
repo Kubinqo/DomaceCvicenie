@@ -20,6 +20,8 @@ class Trening : AppCompatActivity() {
     private lateinit var cvikyList: List<Cvik>
     private var currentIndex: Int = 0
     private var casovac: CountDownTimer? = null
+    private var startTime: Long = 0
+    private var endTime: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,11 +38,18 @@ class Trening : AppCompatActivity() {
         val zoznamCvikov = ZoznamCvikov()
         cvikyList = zoznamCvikov.getCvikyList()
 
-        zobrazCvik()
+        zacniTrening()
 
         hotovoButton.setOnClickListener {
             ukonciCvik()
         }
+    }
+
+    private fun zacniTrening() {
+        // Získajte aktuálny čas pri začiatku tréningu
+        startTime = System.currentTimeMillis()
+
+        zobrazCvik()
     }
 
     private fun zobrazCvik() {
@@ -93,8 +102,18 @@ class Trening : AppCompatActivity() {
     }
 
     private fun ukonciTrening() {
+        // Získajte aktuálny čas pri ukončení tréningu
+        endTime = System.currentTimeMillis()
+
+        // Vypočítajte čas trvania tréningu
+        val casTreningu = endTime - startTime
+
+        // Prevezmite výsledný čas späť do aktivity Apka
         val intent = Intent(this, Apka::class.java)
+        intent.putExtra("casTreningu", casTreningu)
         startActivity(intent)
+
+        // Ukončite aktivitu Trening
         finish()
     }
 }
