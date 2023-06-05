@@ -1,5 +1,6 @@
 package com.example.domacecviceniasvlastnouvahou
 
+import Cvik
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,7 +26,7 @@ class CvikAdapter(private val cvikyList: List<Cvik>) : RecyclerView.Adapter<Cvik
 
         holder.obrazokCvikuImageView.setImageResource(cvik.obrazokId)
         holder.nazovCvikuTextView.text = cvik.nazov
-        holder.popisCvikuTextView.text = cvik.opis
+        holder.popisCvikuTextView.text = cvik.popis
     }
 
     override fun getItemCount(): Int {

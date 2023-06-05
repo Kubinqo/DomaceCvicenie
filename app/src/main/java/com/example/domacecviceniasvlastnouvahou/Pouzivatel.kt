@@ -1,5 +1,7 @@
 package com.example.domacecviceniasvlastnouvahou
 
+import Cvik
+
 class Pouzivatel(pMeno: String, pPohlavie: String, pPushUps: Int, pWorkouty: List<Cvik>) {
     private val meno: String = pMeno
     private val pohlavie: String = pPohlavie
