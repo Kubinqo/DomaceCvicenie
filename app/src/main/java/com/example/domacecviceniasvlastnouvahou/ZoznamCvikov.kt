@@ -41,7 +41,7 @@ class ZoznamCvikov : AppCompatActivity() {
         // Vygenerujte a vráťte zoznam cvikov
         val cviky = mutableListOf<Cvik>()
         cviky.add(Cvik(R.drawable.jumping_jacks, "Jumping Jacks", "warm up", "jumping_jacks"))
-        cviky.add(Cvik(R.drawable.mountain_climber, "Mountain climber", "x14", "mountain_climbers"))
+        cviky.add(Cvik(R.drawable.mountain_climber, "Mountain climber", "x14", "mountain_climber"))
         cviky.add(Cvik(R.drawable.push_ups, "Push-ups", "x16", "push_ups"))
         cviky.add(Cvik(R.drawable.triceps_dips, "Triceps dips", "x12", "triceps_dips"))
         cviky.add(Cvik(R.drawable.squat, "Squats", "x20", "squats"))
