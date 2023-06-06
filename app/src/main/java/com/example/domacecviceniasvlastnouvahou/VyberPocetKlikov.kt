@@ -3,6 +3,7 @@ package com.example.domacecviceniasvlastnouvahou
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -19,6 +20,12 @@ class VyberPocetKlikov : AppCompatActivity() {
     private lateinit var pokrocily: ImageView
     private lateinit var buttonHotovo: Button
 
+    companion object {
+        private lateinit var obtiaznost: String
+        fun getObtiaznst(): String {
+            return obtiaznost
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +35,7 @@ class VyberPocetKlikov : AppCompatActivity() {
         strednePokrocily = findViewById(R.id.strednePokrocilyView)
         pokrocily = findViewById(R.id.pokrocilyView)
         buttonHotovo = findViewById(R.id.hotovoBtn)
+
 
         //Tlacidlo je defaultne deaktivovane
         buttonHotovo.alpha = 0.5f
@@ -40,6 +48,8 @@ class VyberPocetKlikov : AppCompatActivity() {
                 resetImage(strednePokrocily)
                 resetImage(pokrocily)
                 buttonHotovo.alpha = 1f
+
+                obtiaznost = "zaciatocnik"
                 buttonHotovo.isEnabled = true
             } else {
                 resetImage(zaciatocnik)
@@ -59,6 +69,8 @@ class VyberPocetKlikov : AppCompatActivity() {
                 resetImage(zaciatocnik)
                 resetImage(pokrocily)
                 buttonHotovo.alpha = 1f
+
+                obtiaznost = "stredne-pokrocily"
                 buttonHotovo.isEnabled = true
             } else {
                 resetImage(strednePokrocily)
@@ -78,6 +90,8 @@ class VyberPocetKlikov : AppCompatActivity() {
                 resetImage(zaciatocnik)
                 resetImage(strednePokrocily)
                 buttonHotovo.alpha = 1f
+
+                obtiaznost = "pokrocily"
                 buttonHotovo.isEnabled = true
             } else {
                 resetImage(pokrocily)

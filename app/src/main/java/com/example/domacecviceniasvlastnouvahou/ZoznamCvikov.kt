@@ -24,6 +24,8 @@ class ZoznamCvikov : AppCompatActivity() {
         // Inicializácia zoznamu cvikov
         cvikyList = getCvikyList()
 
+
+
         // Inicializácia RecyclerView
         recyclerView = findViewById(R.id.recyclerViewCviky)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -38,13 +40,20 @@ class ZoznamCvikov : AppCompatActivity() {
 
     // Verejná metóda pre získanie zoznamu cvikov
     fun getCvikyList(): List<Cvik> {
-        // Vygenerujte a vráťte zoznam cvikov
+        // Vytvoríte nový zoznam cvikov
         val cviky = mutableListOf<Cvik>()
-        cviky.add(Cvik(R.drawable.jumping_jacks, "Jumping Jacks", "warm up", "jumping_jacks"))
-        cviky.add(Cvik(R.drawable.mountain_climber, "Mountain climber", "x14", "mountain_climber"))
-        cviky.add(Cvik(R.drawable.push_ups, "Push-ups", "x16", "push_ups"))
-        cviky.add(Cvik(R.drawable.triceps_dips, "Triceps dips", "x12", "triceps_dips"))
-        cviky.add(Cvik(R.drawable.squat, "Squats", "x20", "squats"))
+
+        // Použitie vybraného pohlavia a obtiaznosti
+        val pohlavie = VyberPohlavia.getVybranePohlavie()
+        val obtiaznost = VyberPocetKlikov.getObtiaznst()
+
+        // Vytvoríte tréningový plán na základe zvoleného pohlavia a skúseností
+        val treningovyPlan = TreningovyPlan()
+        val plan = treningovyPlan.vytvorTreningovyPlan(pohlavie, obtiaznost)
+
+        // Pridáte cviky z tréningového plánu do zoznamu cvikov
+        cviky.addAll(plan)
+
         return cviky
     }
 

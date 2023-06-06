@@ -2,17 +2,9 @@ package com.example.domacecviceniasvlastnouvahou
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
-import android.animation.PropertyValuesHolder
 import android.content.Intent
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.view.View
-import android.view.animation.AccelerateDecelerateInterpolator
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.ImageView
 
@@ -24,6 +16,13 @@ class VyberPohlavia : AppCompatActivity() {
     private lateinit var muz: ImageView
     private lateinit var zena: ImageView
     private lateinit var buttonDalej: Button
+
+    companion object {
+        private lateinit var vybranePohlavie: String
+        fun getVybranePohlavie(): String {
+            return vybranePohlavie
+        }
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,6 +45,8 @@ class VyberPohlavia : AppCompatActivity() {
                 scaleImage(muz)
                 resetImage(zena)
                 buttonDalej.alpha = 1f
+
+                vybranePohlavie = "muz"
                 buttonDalej.isEnabled = true
             } else {
                 resetImage(muz)
@@ -65,6 +66,8 @@ class VyberPohlavia : AppCompatActivity() {
                 scaleImage(zena)
                 resetImage(muz)
                 buttonDalej.alpha = 1f
+
+                vybranePohlavie = "zena"
                 buttonDalej.isEnabled = true
             } else {
                 resetImage(zena)
