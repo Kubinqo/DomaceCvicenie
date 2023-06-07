@@ -41,7 +41,7 @@ class TreningovyPlan {
                     cviky.add(Cvik(R.drawable.jumping_jacks, "Jumping Jacks", "00:30", "jumping_jacks"))
                     cviky.add(Cvik(R.drawable.mountain_climber, "Mountain climber", "x12", "mountain_climber"))
                     cviky.add(Cvik(R.drawable.push_ups, "Push-ups", "x3", "push_ups"))
-                    cviky.add(Cvik(R.drawable.triceps_dips, "Triceps dips", "x12", "triceps_dips"))
+                    cviky.add(Cvik(R.drawable.triceps_dips, "Triceps dips", "x6", "triceps_dips"))
                     cviky.add(Cvik(R.drawable.squat, "Squats", "x20", "squats"))
                 }
                 "stredne-pokrocily" -> {
