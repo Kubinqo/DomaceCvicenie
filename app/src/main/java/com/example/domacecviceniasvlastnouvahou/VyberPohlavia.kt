@@ -3,6 +3,7 @@ package com.example.domacecviceniasvlastnouvahou
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -18,18 +19,33 @@ class VyberPohlavia : AppCompatActivity() {
     private lateinit var buttonDalej: Button
 
     companion object {
-        private lateinit var vybranePohlavie: String
+        private const val PREFS_NAME = "UserData"
+        private const val KEY_VYBRANE_POHLAVIE = "vybrane_pohlavie"
+        private lateinit var sharedPreferences: SharedPreferences
+
         fun getVybranePohlavie(): String {
-            return vybranePohlavie
+            return sharedPreferences.getString(KEY_VYBRANE_POHLAVIE, "") ?: ""
+        }
+
+        fun setVybranePohlavie(pohlavie: String) {
+            sharedPreferences.edit().putString(KEY_VYBRANE_POHLAVIE, pohlavie).apply()
         }
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_vyber_pohlavia)
 
-        //Nastavenie premennych pre muz, zena a tlacidlo Dalej
+        sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+
+        // Kontrola, či bola hodnota vybraného pohlavia uložená
+        val vybranePohlavie = getVybranePohlavie()
+        if (vybranePohlavie.isNotEmpty()) {
+            spustiDalsiuAktivitu()
+            return
+        }
+
+        // Pokračovanie s bežným priebehom aktivity
         muz = findViewById(R.id.pohlavieMuzView)
         zena = findViewById(R.id.pohlavieZenaView)
         buttonDalej = findViewById(R.id.dalejBtn)
@@ -46,7 +62,7 @@ class VyberPohlavia : AppCompatActivity() {
                 resetImage(zena)
                 buttonDalej.alpha = 1f
 
-                vybranePohlavie = "muz"
+                setVybranePohlavie("muz")
                 buttonDalej.isEnabled = true
             } else {
                 resetImage(muz)
@@ -67,7 +83,7 @@ class VyberPohlavia : AppCompatActivity() {
                 resetImage(muz)
                 buttonDalej.alpha = 1f
 
-                vybranePohlavie = "zena"
+                setVybranePohlavie("zena")
                 buttonDalej.isEnabled = true
             } else {
                 resetImage(zena)
@@ -82,21 +98,14 @@ class VyberPohlavia : AppCompatActivity() {
 
         //Listener pre tlacidlo pre prechod na dalsiu aktivitu
         buttonDalej.setOnClickListener {
-            val intent = Intent(this, VyberPocetKlikov::class.java)
-            startActivity(intent)
+            spustiDalsiuAktivitu()
         }
+    }
 
-        // Kontrola spustenia aktivity VyberPohlavia
-        if (!AppStartManager.hasVyberPohlaviaStarted(this)) {
-            AppStartManager.setVyberPohlaviaStarted(this)
-        } else {
-            // Aktivita už bola spustená, takže môžete pokračovať s aktuálnou aktivitou
-            val intent = Intent(this, VyberPocetKlikov::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-
+    private fun spustiDalsiuAktivitu() {
+        val intent = Intent(this, VyberPocetKlikov::class.java)
+        startActivity(intent)
+        finish()
     }
 
     //Funkcia, ktora zmensi velkost ImageView pomocou animacie

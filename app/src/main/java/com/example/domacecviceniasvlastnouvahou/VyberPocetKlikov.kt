@@ -21,9 +21,16 @@ class VyberPocetKlikov : AppCompatActivity() {
     private lateinit var buttonHotovo: Button
 
     companion object {
-        private lateinit var obtiaznost: String
-        fun getObtiaznst(): String {
-            return obtiaznost
+        private const val PREFS_NAME = "UserData"
+        private const val KEY_OBTIAZNOST = "obtiaznost"
+        private lateinit var sharedPreferences: SharedPreferences
+
+        fun getObtiaznost(): String {
+            return sharedPreferences.getString(KEY_OBTIAZNOST, "") ?: ""
+        }
+
+        fun setObtiaznost(obtiaznost: String) {
+            sharedPreferences.edit().putString(KEY_OBTIAZNOST, obtiaznost).apply()
         }
     }
 
@@ -36,12 +43,25 @@ class VyberPocetKlikov : AppCompatActivity() {
         pokrocily = findViewById(R.id.pokrocilyView)
         buttonHotovo = findViewById(R.id.hotovoBtn)
 
-
-        //Tlacidlo je defaultne deaktivovane
+        // Tlacidlo je defaultne deaktivovane
         buttonHotovo.alpha = 0.5f
         buttonHotovo.isEnabled = false
 
-        //Listener pre obrazok zaciatocnik
+        // Inicializácia SharedPreferences
+        sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+
+        // Kontrola, či bola hodnota premennej obtiaznost uložená
+        val savedObtiaznost = getObtiaznost()
+        if (savedObtiaznost.isNotEmpty()) {
+            // Premenná obtiaznost bola uložená, môžete vykonať príslušnú logiku
+            // napríklad zobraziť ďalšiu aktivitu
+            val intent = Intent(this, Apka::class.java)
+            startActivity(intent)
+            finish()
+            return
+        }
+
+        // Listener pre obrazok zaciatocnik
         zaciatocnik.setOnClickListener {
             if (!isImageZaciatocnikSelected) {
                 scaleImage(zaciatocnik)
@@ -49,7 +69,7 @@ class VyberPocetKlikov : AppCompatActivity() {
                 resetImage(pokrocily)
                 buttonHotovo.alpha = 1f
 
-                obtiaznost = "zaciatocnik"
+                setObtiaznost("zaciatocnik")
                 buttonHotovo.isEnabled = true
             } else {
                 resetImage(zaciatocnik)
@@ -62,7 +82,7 @@ class VyberPocetKlikov : AppCompatActivity() {
             checkImagesScaled()
         }
 
-        //Listener pre obrazok stredne pokrocily
+        // Listener pre obrazok stredne pokrocily
         strednePokrocily.setOnClickListener {
             if (!isImageStrednePokrocilySelected) {
                 scaleImage(strednePokrocily)
@@ -70,7 +90,7 @@ class VyberPocetKlikov : AppCompatActivity() {
                 resetImage(pokrocily)
                 buttonHotovo.alpha = 1f
 
-                obtiaznost = "stredne-pokrocily"
+                setObtiaznost("stredne-pokrocily")
                 buttonHotovo.isEnabled = true
             } else {
                 resetImage(strednePokrocily)
@@ -83,7 +103,7 @@ class VyberPocetKlikov : AppCompatActivity() {
             checkImagesScaled()
         }
 
-        //Listener pre obrazok pokrocily
+        // Listener pre obrazok pokrocily
         pokrocily.setOnClickListener {
             if (!isImagePokrocilySelected) {
                 scaleImage(pokrocily)
@@ -91,7 +111,7 @@ class VyberPocetKlikov : AppCompatActivity() {
                 resetImage(strednePokrocily)
                 buttonHotovo.alpha = 1f
 
-                obtiaznost = "pokrocily"
+                setObtiaznost("pokrocily")
                 buttonHotovo.isEnabled = true
             } else {
                 resetImage(pokrocily)
@@ -104,22 +124,17 @@ class VyberPocetKlikov : AppCompatActivity() {
             checkImagesScaled()
         }
 
-        //Listener pre tlacidlo pre prechod na dalsiu aktivitu
+        // Listener pre tlacidlo pre prechod na dalsiu aktivitu
         buttonHotovo.setOnClickListener() {
             val intent = Intent(this, Apka::class.java)
             startActivity(intent)
         }
+    }
 
-        // Kontrola spustenia aktivity VyberPocetKlikov
-        if (!AppStartManager.hasVyberPocetKlikovStarted(this)) {
-            AppStartManager.setVyberPocetKlikovStarted(this)
-        } else {
-            // Aktivita už bola spustená, takže môžete pokračovať s aktuálnou aktivitou
-            val intent = Intent(this, Apka::class.java)
-            startActivity(intent)
-            finish()
-        }
-
+    override fun onDestroy() {
+        // Uloženie hodnoty premennej obtiaznost pri ukončení aktivity
+        setObtiaznost(getObtiaznost())
+        super.onDestroy()
     }
 
     //Funkcia, ktora zmensi velkost ImageView pomocou animacie

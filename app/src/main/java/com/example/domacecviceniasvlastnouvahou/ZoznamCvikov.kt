@@ -45,7 +45,7 @@ class ZoznamCvikov : AppCompatActivity() {
 
         // Použitie vybraného pohlavia a obtiaznosti
         val pohlavie = VyberPohlavia.getVybranePohlavie()
-        val obtiaznost = VyberPocetKlikov.getObtiaznst()
+        val obtiaznost = VyberPocetKlikov.getObtiaznost()
 
         // Vytvoríte tréningový plán na základe zvoleného pohlavia a skúseností
         val treningovyPlan = TreningovyPlan()

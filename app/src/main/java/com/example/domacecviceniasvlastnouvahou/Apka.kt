@@ -11,6 +11,8 @@ class Apka : AppCompatActivity() {
 
     private lateinit var workoutImgViewA: ImageView
     private lateinit var casTreninguTextView: TextView
+    private lateinit var kCalImgView: TextView
+    private var spaleneKcalA: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,11 +20,16 @@ class Apka : AppCompatActivity() {
 
         workoutImgViewA = findViewById(R.id.workoutImgView)
         casTreninguTextView = findViewById(R.id.casImgView)
+        kCalImgView = findViewById(R.id.kCalImgView)
 
         val casTreningu = intent.getLongExtra("casTreningu", 0)
         val formatovanyCas = formatujCas(casTreningu)
 
+        spaleneKcalA = intent.getIntExtra("spaleneKcal", 0)
+        val formatovaneSpaleneKcal = formatujSpaleneKcal(spaleneKcalA)
+
         casTreninguTextView.text = "$formatovanyCas\n čas tréningu"
+        kCalImgView.text = "$formatovaneSpaleneKcal\n kcal"
 
         workoutImgViewA.setOnClickListener {
             val intent = Intent(this, ZoznamCvikov::class.java)
@@ -36,5 +43,9 @@ class Apka : AppCompatActivity() {
         val sekundy = TimeUnit.MILLISECONDS.toSeconds(cas) % 60
 
         return String.format("%02d:%02d:%02d", hodiny, minuty, sekundy)
+    }
+
+    private fun formatujSpaleneKcal(spaleneKcal: Int): String {
+        return "$spaleneKcal kcal"
     }
 }
