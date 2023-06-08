@@ -1,30 +1,31 @@
 package com.example.domacecviceniasvlastnouvahou
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.media.AudioManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.SeekBar
 
 class Settings : AppCompatActivity() {
     private lateinit var audioManager: AudioManager
     private lateinit var volumeSeekBar: SeekBar
-    //private lateinit var casovyLimitEditText: EditText
     private lateinit var sharedPreferences: SharedPreferences
-
     private lateinit var settingsManager: SettingsManager
 
+    private lateinit var treningImgView: ImageView
     companion object {
         private const val DEFAULT_CASOVY_LIMIT = 30
         private const val PREFS_NAME = "MyPrefs"
         private const val KEY_CASOVY_LIMIT = "casovyLimit"
     }
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
@@ -33,10 +34,10 @@ class Settings : AppCompatActivity() {
 
         audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
         volumeSeekBar = findViewById(R.id.volumeSeekBar)
-        //casovyLimitEditText = findViewById(R.id.casovyLimitEditText)
+        treningImgView = findViewById((R.id.treningImgView))
 
         sharedPreferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-        val casovyLimitEditText = findViewById<EditText>(R.id.casovyLimitEditText)
+        val casovyLimitEditText = findViewById<EditText>(R.id.timeLimitEditText)
 
         // Nastavenie aktuálnej hodnoty hlasitosti
         val currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
@@ -84,9 +85,30 @@ class Settings : AppCompatActivity() {
             }
         })
 
+        treningImgView.setOnClickListener {
+            animateImageView(treningImgView)
+            val intent = Intent(this, Apka::class.java)
+            startActivity(intent)
+        }
+
     }
-    fun getCasovyLimit(): Int {
-        return settingsManager.getCasovyLimit()
+    private fun animateImageView(imageView: ImageView) {
+        val scaleDownAnimation = AnimationUtils.loadAnimation(this, R.anim.scale_down)
+        val scaleUpAnimation = AnimationUtils.loadAnimation(this, R.anim.scale_up)
+
+        // Zachyťte udalosti animácie pre vrátenie obrazka do pôvodnej veľkosti po skončení animácie zväčšenia
+        scaleUpAnimation.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(animation: Animation) {}
+
+            override fun onAnimationEnd(animation: Animation) {
+                // Nastavenia po skončení animácie zväčšenia (napr. zmena zdroja obrazka)
+            }
+
+            override fun onAnimationRepeat(animation: Animation) {}
+        })
+
+        imageView.startAnimation(scaleDownAnimation)
+        imageView.startAnimation(scaleUpAnimation)
     }
 
     private fun saveCasovyLimit(casovyLimit: Int) {

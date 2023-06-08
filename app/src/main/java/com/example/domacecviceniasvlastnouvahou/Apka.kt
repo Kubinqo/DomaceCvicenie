@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import java.util.concurrent.TimeUnit
@@ -39,11 +41,29 @@ class Apka : AppCompatActivity() {
         }
 
         nastaveniaImgView.setOnClickListener {
+            animateImageView(nastaveniaImgView)
             val intent = Intent(this, Settings::class.java)
             startActivity(intent)
         }
     }
+    private fun animateImageView(imageView: ImageView) {
+        val scaleDownAnimation = AnimationUtils.loadAnimation(this, R.anim.scale_down)
+        val scaleUpAnimation = AnimationUtils.loadAnimation(this, R.anim.scale_up)
 
+        // Zachyťte udalosti animácie pre vrátenie obrazka do pôvodnej veľkosti po skončení animácie zväčšenia
+        scaleUpAnimation.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(animation: Animation) {}
+
+            override fun onAnimationEnd(animation: Animation) {
+                // Nastavenia po skončení animácie zväčšenia (napr. zmena zdroja obrazka)
+            }
+
+            override fun onAnimationRepeat(animation: Animation) {}
+        })
+
+        imageView.startAnimation(scaleDownAnimation)
+        imageView.startAnimation(scaleUpAnimation)
+    }
     private fun formatujCas(cas: Long): String {
         val hodiny = TimeUnit.MILLISECONDS.toHours(cas)
         val minuty = TimeUnit.MILLISECONDS.toMinutes(cas) % 60
