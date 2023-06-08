@@ -26,9 +26,13 @@ class Trening : AppCompatActivity() {
     private var startTime: Long = 0
     private var endTime: Long = 0
 
+    private lateinit var settingsManager: SettingsManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_trening)
+
+        settingsManager = SettingsManager(this)
 
         nazovCvikuTextView = findViewById(R.id.nazovCvikuTextViewT)
         popisCvikuTextView = findViewById(R.id.popisCvikuTextViewT)
@@ -79,8 +83,10 @@ class Trening : AppCompatActivity() {
                 mediaPlayer.isLooping = true
                 mediaPlayer.start()
 
+                val casovyLimit = settingsManager.getCasovyLimit() * 1000
+
                 if (currentIndex == 0) {
-                    casovac = object : CountDownTimer(30000, 1000) {
+                    casovac = object : CountDownTimer(casovyLimit.toLong(), 1000) {
                         override fun onTick(millisUntilFinished: Long) {
                             val seconds = millisUntilFinished / 1000
                             popisCvikuTextView.text = seconds.toString()
