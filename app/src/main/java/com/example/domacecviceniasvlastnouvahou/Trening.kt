@@ -2,6 +2,7 @@ package com.example.domacecviceniasvlastnouvahou
 
 import Cvik
 import android.content.Intent
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -48,7 +49,8 @@ class Trening : AppCompatActivity() {
     private fun zacniTrening() {
         // Získajte aktuálny čas pri začiatku tréningu
         startTime = System.currentTimeMillis()
-
+        val mediaPlayer = MediaPlayer.create(this, R.raw.pisk)
+        mediaPlayer.start()
         zobrazCvik()
     }
 
@@ -93,6 +95,8 @@ class Trening : AppCompatActivity() {
 
     private fun zobrazDalsiCvik() {
         currentIndex++
+        val mediaPlayer = MediaPlayer.create(this, R.raw.pisk)
+        mediaPlayer.start()
         zobrazCvik()
     }
 

@@ -12,7 +12,6 @@ class Apka : AppCompatActivity() {
     private lateinit var workoutImgViewA: ImageView
     private lateinit var casTreninguTextView: TextView
     private lateinit var kCalImgView: TextView
-    private var spaleneKcalA: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +24,7 @@ class Apka : AppCompatActivity() {
         val casTreningu = intent.getLongExtra("casTreningu", 0)
         val formatovanyCas = formatujCas(casTreningu)
 
-        spaleneKcalA = intent.getIntExtra("spaleneKcal", 0)
+        val spaleneKcalA = intent.getIntExtra("spaleneKcal", 0)
         val formatovaneSpaleneKcal = formatujSpaleneKcal(spaleneKcalA)
 
         casTreninguTextView.text = "$formatovanyCas\n čas tréningu"
