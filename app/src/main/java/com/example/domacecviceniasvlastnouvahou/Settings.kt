@@ -85,6 +85,10 @@ class Settings : AppCompatActivity() {
         })
 
     }
+    fun getCasovyLimit(): Int {
+        return settingsManager.getCasovyLimit()
+    }
+
     private fun saveCasovyLimit(casovyLimit: Int) {
         settingsManager.saveCasovyLimit(casovyLimit)
     }

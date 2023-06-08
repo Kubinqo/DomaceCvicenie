@@ -14,17 +14,20 @@ class ZoznamCvikov : AppCompatActivity() {
     private lateinit var cvikyAdapter: CvikAdapter
     private lateinit var cvikyList: List<Cvik>
     private lateinit var zacatTreningButton: Button
-
     private var currentCvikIndex: Int = 0
+
+    private lateinit var settingsManager: SettingsManager
+    private var casovyLimit: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_zoznam_cvikov)
 
+        settingsManager = SettingsManager(this)
+        casovyLimit = settingsManager.getCasovyLimit()
+
         // Inicializácia zoznamu cvikov
         cvikyList = getCvikyList()
-
-
 
         // Inicializácia RecyclerView
         recyclerView = findViewById(R.id.recyclerViewCviky)
@@ -49,7 +52,7 @@ class ZoznamCvikov : AppCompatActivity() {
 
         // Vytvoríte tréningový plán na základe zvoleného pohlavia a skúseností
         val treningovyPlan = TreningovyPlan()
-        val plan = treningovyPlan.vytvorTreningovyPlan(pohlavie, obtiaznost)
+        val plan = treningovyPlan.vytvorTreningovyPlan(pohlavie, obtiaznost, casovyLimit)
 
         // Pridáte cviky z tréningového plánu do zoznamu cvikov
         cviky.addAll(plan)
