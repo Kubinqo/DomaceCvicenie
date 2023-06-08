@@ -11,6 +11,7 @@ class Apka : AppCompatActivity() {
 
     private lateinit var workoutImgViewA: ImageView
     private lateinit var casTreninguTextView: TextView
+    private lateinit var nastaveniaImgView: ImageView
     private lateinit var kCalImgView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,6 +19,7 @@ class Apka : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         workoutImgViewA = findViewById(R.id.workoutImgView)
+        nastaveniaImgView = findViewById(R.id.nastaveniaImgView)
         casTreninguTextView = findViewById(R.id.casImgView)
         kCalImgView = findViewById(R.id.kCalImgView)
 
@@ -32,6 +34,11 @@ class Apka : AppCompatActivity() {
 
         workoutImgViewA.setOnClickListener {
             val intent = Intent(this, ZoznamCvikov::class.java)
+            startActivity(intent)
+        }
+
+        nastaveniaImgView.setOnClickListener {
+            val intent = Intent(this, Settings::class.java)
             startActivity(intent)
         }
     }

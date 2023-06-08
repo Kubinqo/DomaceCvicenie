@@ -1,7 +1,9 @@
 package com.example.domacecviceniasvlastnouvahou
 
 import Cvik
+import android.content.Context
 import android.content.Intent
+import android.media.AudioManager
 import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -49,8 +51,14 @@ class Trening : AppCompatActivity() {
     private fun zacniTrening() {
         // Získajte aktuálny čas pri začiatku tréningu
         startTime = System.currentTimeMillis()
+
         val mediaPlayer = MediaPlayer.create(this, R.raw.pisk)
+        val audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
+        val currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
+
+        mediaPlayer.setVolume(currentVolume.toFloat(), currentVolume.toFloat())
         mediaPlayer.start()
+
         zobrazCvik()
     }
 
