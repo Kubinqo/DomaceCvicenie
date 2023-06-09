@@ -36,6 +36,7 @@ class Apka : AppCompatActivity() {
         kCalImgView.text = "$formatovaneSpaleneKcal\n kcal"
 
         workoutImgViewA.setOnClickListener {
+            animateImageView(workoutImgViewA)
             val intent = Intent(this, ZoznamCvikov::class.java)
             startActivity(intent)
         }
