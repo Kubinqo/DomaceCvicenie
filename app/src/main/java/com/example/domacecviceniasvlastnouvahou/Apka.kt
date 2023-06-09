@@ -51,6 +51,7 @@ class Apka : AppCompatActivity() {
             notificationCheck = false
             val intent = Intent(this, ZoznamCvikov::class.java)
             startActivity(intent)
+            finish()
         }
 
         nastaveniaImgView.setOnClickListener {

@@ -7,15 +7,23 @@
     android:paddingTop="16dp"
     android:paddingBottom="16dp">
 
-    <!-- Ostatné prvky v layoute -->
+    <ImageView
+        android:id="@+id/treningImgView"
+        android:layout_width="40dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="330dp"
+        android:layout_marginTop="0dp"
+
+        android:src="@drawable/stopwatch" />
 
     <TextView
         android:id="@+id/nastavenia"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="0dp"
         android:layout_marginBottom="16dp"
         android:text="Nastavenia"
+        android:layout_below="@+id/treningImgView"
         android:textColor="#000000"
         android:textSize="24sp"
         android:textStyle="bold" />
@@ -59,52 +67,47 @@
         android:inputType="number"
         android:minHeight="48dp" />
 
-    <ImageView
-        android:id="@+id/treningImgView"
-        android:layout_width="100dp"
-        android:layout_height="85dp"
-        android:layout_marginTop="590dp"
-        android:layout_marginStart="20dp"
 
-        android:src="@drawable/stopwatch" />
 
-    <TextView
-        android:id="@+id/treningTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/treningImgView"
-        android:layout_marginTop="0dp"
-        android:layout_marginStart="30dp"
-        android:fontFamily="sans-serif-black"
-        android:text="Tréning"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+    <!--
+        <TextView
+            android:id="@+id/treningTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/treningImgView"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="60dp"
+            android:fontFamily="sans-serif-black"
+            android:text="Tréning"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
-    <ImageView
-        android:id="@+id/nastaveniaImgView"
-        android:layout_width="100dp"
-        android:layout_height="85dp"
-        android:layout_marginTop="590dp"
-        android:layout_marginEnd="30dp"
 
-        android:layout_alignParentEnd="true"
-        android:background="@drawable/rounded_background"
-        android:src="@drawable/settings" />
+        <ImageView
+            android:id="@+id/nastaveniaImgView"
+            android:layout_width="50dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="650dp"
+            android:layout_marginEnd="60dp"
 
-    <TextView
-        android:id="@+id/nastaveniaTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/nastaveniaImgView"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="25dp"
-        android:layout_alignParentEnd="true"
-        android:fontFamily="sans-serif-black"
-        android:text="Nastavenia"
-        android:textColor="#000000"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/rounded_background"
+            android:src="@drawable/settings" />
+
+        <TextView
+            android:id="@+id/nastaveniaTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nastaveniaImgView"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="50dp"
+            android:layout_alignParentEnd="true"
+            android:fontFamily="sans-serif-black"
+            android:text="Nastavenia"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:textStyle="bold" /> -->
 
 </RelativeLayout>

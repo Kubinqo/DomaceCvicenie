@@ -65,7 +65,6 @@ class Trening : AppCompatActivity() {
 
         zobrazCvik()
     }
-
     private fun zobrazCvik() {
         if (currentIndex < cvikyList.size) {
             val cvik = cvikyList[currentIndex]
@@ -85,7 +84,7 @@ class Trening : AppCompatActivity() {
 
                 val casovyLimit = settingsManager.getCasovyLimit() * 1000
 
-                if (currentIndex == 0) {
+                if (currentIndex == 0 && casovyLimit != 0) {
                     casovac = object : CountDownTimer(casovyLimit.toLong(), 1000) {
                         override fun onTick(millisUntilFinished: Long) {
                             val seconds = millisUntilFinished / 1000

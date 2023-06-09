@@ -38,6 +38,7 @@ class ZoznamCvikov : AppCompatActivity() {
         zacatTreningButton = findViewById(R.id.zacatTreningButton)
         zacatTreningButton.setOnClickListener {
             spustiTrening()
+            finish()
         }
     }
 
@@ -65,16 +66,15 @@ class ZoznamCvikov : AppCompatActivity() {
         if (currentCvikIndex < cvikyList.size) {
             val cvik = cvikyList[currentCvikIndex]
 
-            // Vytvorte intent pre aktivitu TreningActivity
             val intent = Intent(this, Trening::class.java)
             // Preneste informácie o cviku do aktivity TreningActivity
             intent.putExtra("cvik", cvik)
-
-            // Spustite aktivitu TreningActivity
             startActivity(intent)
 
             // Inkrementujte index aktuálneho cviku
             currentCvikIndex++
+        } else {
+            finish()
         }
     }
 }

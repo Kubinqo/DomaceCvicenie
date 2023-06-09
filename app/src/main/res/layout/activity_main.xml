@@ -6,64 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".Apka">
 
-
-    <ImageView
-        android:id="@+id/treningImgView"
-        android:layout_width="100dp"
-        android:layout_height="85dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="590dp"
-        app:layout_constraintBottom_toTopOf="@+id/treningTextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/rounded_background"
-        app:srcCompat="@drawable/stopwatch" />
-
-    <TextView
-        android:id="@+id/treningTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/treningImgView"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="600dp"
-        android:fontFamily="sans-serif-black"
-        android:text="Tréning"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="24sp"
-        android:textStyle="bold"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/nastaveniaImgView"
-        android:layout_width="100dp"
-        android:layout_height="85dp"
-        android:layout_marginTop="590dp"
-        android:layout_marginEnd="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/nastaveniaTextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/settings" />
-
-    <TextView
-        android:id="@+id/nastaveniaTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/nastaveniaImgView"
-        android:layout_marginTop="600dp"
-        android:layout_marginEnd="25dp"
-        android:fontFamily="sans-serif-black"
-        android:text="Nastavenia"
-        android:textColor="#000000"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ImageView
         android:id="@+id/modraImgView"
         android:layout_width="554dp"
@@ -76,6 +18,66 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.964"
         app:srcCompat="@drawable/modra" />
+
+    <!--
+    <ImageView
+        android:id="@+id/treningImgView"
+        android:layout_width="50dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="690dp"
+        app:layout_constraintBottom_toTopOf="@+id/treningTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/rounded_background"
+        app:srcCompat="@drawable/stopwatch" />
+
+    <TextView
+        android:id="@+id/treningTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/treningImgView"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="700dp"
+        android:fontFamily="sans-serif-black"
+        android:text="Tréning"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        android:textStyle="bold"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" /> -->
+
+    <!--
+    <TextView
+        android:id="@+id/nastaveniaTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nastaveniaImgView"
+        android:layout_marginTop="700dp"
+        android:layout_marginEnd="50dp"
+        android:fontFamily="sans-serif-black"
+        android:text="Nastavenia"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" /> -->
+
+
+    <ImageView
+        android:id="@+id/nastaveniaImgView"
+        android:layout_width="50dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="340dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/settings" />
 
     <TextView
         android:id="@+id/domacCvicImgView"

@@ -87,8 +87,7 @@ class Settings : AppCompatActivity() {
 
         treningImgView.setOnClickListener {
             animateImageView(treningImgView)
-            val intent = Intent(this, Apka::class.java)
-            startActivity(intent)
+            finish()
         }
 
     }
