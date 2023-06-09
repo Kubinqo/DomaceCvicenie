@@ -1,7 +1,6 @@
 package com.example.domacecviceniasvlastnouvahou
 
 import NotificationHelper
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,7 +8,6 @@ import android.os.Handler
 import android.os.Looper
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import java.util.concurrent.TimeUnit
@@ -27,7 +25,6 @@ class Apka : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         notificationHelper = NotificationHelper(this)
-
 
         workoutImgViewA = findViewById(R.id.workoutImgView)
         nastaveniaImgView = findViewById(R.id.nastaveniaImgView)
