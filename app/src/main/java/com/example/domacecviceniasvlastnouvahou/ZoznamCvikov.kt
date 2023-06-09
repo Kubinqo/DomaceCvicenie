@@ -9,13 +9,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class ZoznamCvikov : AppCompatActivity() {
-
     private lateinit var recyclerView: RecyclerView
     private lateinit var cvikyAdapter: CvikAdapter
     private lateinit var cvikyList: List<Cvik>
     private lateinit var zacatTreningButton: Button
     private var currentCvikIndex: Int = 0
-
     private lateinit var settingsManager: SettingsManager
     private var casovyLimit: Int = 0
 
@@ -26,7 +24,6 @@ class ZoznamCvikov : AppCompatActivity() {
         settingsManager = SettingsManager(this)
         casovyLimit = settingsManager.getCasovyLimit()
 
-        // Inicializácia zoznamu cvikov
         cvikyList = getCvikyList()
 
         // Inicializácia RecyclerView
@@ -42,7 +39,6 @@ class ZoznamCvikov : AppCompatActivity() {
         }
     }
 
-    // Verejná metóda pre získanie zoznamu cvikov
     fun getCvikyList(): List<Cvik> {
         // Vytvoríte nový zoznam cvikov
         val cviky = mutableListOf<Cvik>()
