@@ -1,11 +1,14 @@
 package com.example.domacecviceniasvlastnouvahou
 
+import NotificationHelper
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import java.util.concurrent.TimeUnit
@@ -17,9 +20,17 @@ class Apka : AppCompatActivity() {
     private lateinit var nastaveniaImgView: ImageView
     private lateinit var kCalImgView: TextView
 
+    private lateinit var notificationHelper: NotificationHelper
+    private val handler = Handler()
+    private val checkInterval = 5 * 1000
+    private var notificationCheck = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        notificationHelper = NotificationHelper(this)
+        notificationCheck = true
 
         workoutImgViewA = findViewById(R.id.workoutImgView)
         nastaveniaImgView = findViewById(R.id.nastaveniaImgView)
@@ -37,15 +48,40 @@ class Apka : AppCompatActivity() {
 
         workoutImgViewA.setOnClickListener {
             animateImageView(workoutImgViewA)
+            notificationCheck = false
             val intent = Intent(this, ZoznamCvikov::class.java)
             startActivity(intent)
         }
 
         nastaveniaImgView.setOnClickListener {
             animateImageView(nastaveniaImgView)
+            notificationCheck = false
             val intent = Intent(this, Settings::class.java)
             startActivity(intent)
         }
+    }
+    override fun onResume() {
+        super.onResume()
+        notificationCheck = true
+    }
+    override fun onStop() {
+        super.onStop()
+        if (notificationCheck) {
+            startSatisfactionCheck()
+        }
+    }
+
+    private val checkExerciseAbsenceRunnable = object : Runnable {
+        override fun run() {
+            checkSatisfaction()
+            handler.postDelayed(this, checkInterval.toLong())
+        }
+    }
+    private fun startSatisfactionCheck() {
+        handler.postDelayed(checkExerciseAbsenceRunnable, checkInterval.toLong())
+    }
+    private fun checkSatisfaction() {
+        notificationHelper.showAppSatisfactionNotification()
     }
     private fun animateImageView(imageView: ImageView) {
         val scaleDownAnimation = AnimationUtils.loadAnimation(this, R.anim.scale_down)

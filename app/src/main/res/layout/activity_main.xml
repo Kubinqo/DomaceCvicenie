@@ -142,4 +142,5 @@
         app:layout_constraintBottom_toTopOf="@+id/workoutImgView"
         app:layout_constraintStart_toStartOf="parent" />
 
+
 </androidx.constraintlayout.widget.ConstraintLayout>
