@@ -46,8 +46,8 @@ class NotificationHelper(private val context: Context) {
      * Zobrazí oznámenie o spokojnosti s aplikáciou.
      */
     fun showAppSatisfactionNotification() {
-        val title = "Spokojnosť s aplikáciou"
-        val content = "Ako sa vám páči naša aplikácia? Ohodnoťte ju prosím."
+        val title = "Ako sa vám páči naša aplikácia?"
+        val content = "Ohodnoťte ju prosím na Play Store."
 
         val notification = NotificationCompat.Builder(context, channelId)
             .setSmallIcon(R.drawable.triceps_dips)
