@@ -60,6 +60,16 @@ class Trening : AppCompatActivity() {
     }
 
     /**
+     * Táto metóda sa volá, keď je stlačené tlačidlo späť na zariadení.
+     * Spúšťa aktivitu Apka a ukončuje aktuálnu aktivitu Trening.
+     */
+    override fun onBackPressed() {
+        val intent = Intent(this, Apka::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    /**
      * Metóda spúšťa tréning.
      */
     private fun zacniTrening() {
