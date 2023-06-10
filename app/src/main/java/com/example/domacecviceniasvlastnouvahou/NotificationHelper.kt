@@ -9,6 +9,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.example.domacecviceniasvlastnouvahou.R
+import kotlin.random.Random
 
 /**
  * Pomocník pre prácu s oznámeniami v aplikácii.
@@ -56,19 +57,8 @@ class NotificationHelper(private val context: Context) {
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .build()
 
-        if (ActivityCompat.checkSelfPermission(
-                context,
-                Manifest.permission.POST_NOTIFICATIONS
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            NotificationManagerCompat.from(context).notify(Random.nextInt(), notification)
         }
         notificationManager.notify(1, notification)
     }
