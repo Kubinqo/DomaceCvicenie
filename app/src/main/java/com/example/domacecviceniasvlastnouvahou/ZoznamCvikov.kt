@@ -8,6 +8,9 @@ import android.widget.Button
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
+/**
+ * Aktivita zobrazujúca zoznam cvikov. Po prejdení z aktivity "Apka"
+ */
 class ZoznamCvikov : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var cvikyAdapter: CvikAdapter
@@ -17,6 +20,9 @@ class ZoznamCvikov : AppCompatActivity() {
     private lateinit var settingsManager: SettingsManager
     private var casovyLimit: Int = 0
 
+    /**
+     * Metóda volaná pri vytvorení aktivity.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_zoznam_cvikov)
@@ -26,7 +32,7 @@ class ZoznamCvikov : AppCompatActivity() {
 
         cvikyList = getCvikyList()
 
-        // Inicializácia RecyclerView
+        // Inicializacia RecyclerView
         recyclerView = findViewById(R.id.recyclerViewCviky)
         recyclerView.layoutManager = LinearLayoutManager(this)
         cvikyAdapter = CvikAdapter(cvikyList)
@@ -39,35 +45,39 @@ class ZoznamCvikov : AppCompatActivity() {
         }
     }
 
+    /**
+     * Získa zoznam cvikov pre zobrazenie v RecyclerView.
+     *
+     * @return zoznam cvikov
+     */
     fun getCvikyList(): List<Cvik> {
-        // Vytvoríte nový zoznam cvikov
         val cviky = mutableListOf<Cvik>()
-
-        // Použitie vybraného pohlavia a obtiaznosti
         val pohlavie = VyberPohlavia.getVybranePohlavie()
         val obtiaznost = VyberPocetKlikov.getObtiaznost()
 
-        // Vytvoríte tréningový plán na základe zvoleného pohlavia a skúseností
+        // Vytvorenie treningoveho planu na zaklade zvoleneho pohlavia a skúsenosti a nastavenia casu pre prvy cvik
         val treningovyPlan = TreningovyPlan()
         val plan = treningovyPlan.vytvorTreningovyPlan(pohlavie, obtiaznost, casovyLimit)
 
-        // Pridáte cviky z tréningového plánu do zoznamu cvikov
+        // Prida cviky z tréningoveho planu do zoznamu cvikov
         cviky.addAll(plan)
 
         return cviky
     }
 
+    /**
+     * Spustí tréning pre ďalší cvik.
+     */
     private fun spustiTrening() {
-        // Skontrolujte, či existuje ďalší cvik
+        // Skontrolujte, ci existuje dalsí cvik
         if (currentCvikIndex < cvikyList.size) {
             val cvik = cvikyList[currentCvikIndex]
 
             val intent = Intent(this, Trening::class.java)
-            // Preneste informácie o cviku do aktivity TreningActivity
+            // Prenesie informacie o cviku do aktivity Trening
             intent.putExtra("cvik", cvik)
             startActivity(intent)
 
-            // Inkrementujte index aktuálneho cviku
             currentCvikIndex++
         } else {
             finish()

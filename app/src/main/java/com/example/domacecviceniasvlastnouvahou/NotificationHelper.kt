@@ -10,6 +10,11 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.example.domacecviceniasvlastnouvahou.R
 
+/**
+ * Pomocník pre prácu s oznámeniami v aplikácii.
+ *
+ * @param context kontext aplikácie
+ */
 class NotificationHelper(private val context: Context) {
 
     private val notificationManager = NotificationManagerCompat.from(context)
@@ -19,6 +24,9 @@ class NotificationHelper(private val context: Context) {
         createNotificationChannel()
     }
 
+    /**
+     * Vytvorí notifikačný kanál pre oznámenia.
+     */
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = context.getString(R.string.default_notification_channel_name)
@@ -34,6 +42,9 @@ class NotificationHelper(private val context: Context) {
         }
     }
 
+    /**
+     * Zobrazí oznámenie o spokojnosti s aplikáciou.
+     */
     fun showAppSatisfactionNotification() {
         val title = "Spokojnosť s aplikáciou"
         val content = "Ako sa vám páči naša aplikácia? Ohodnoťte ju prosím."

@@ -2,7 +2,19 @@ package com.example.domacecviceniasvlastnouvahou
 
 import Cvik
 
+/**
+ * Trieda slúži na vytvorenie tréningového plánu, ktorý obsahuje cviky podľa zvolených parametrov.
+ */
 class TreningovyPlan {
+
+    /**
+     * Metóda `vytvorTreningovyPlan` vytvára tréningový plán na základe zvoleného pohlavia, úrovne skúseností a hodnoty času.
+     *
+     * @param pohlavie            Pohlavie pre výber vhodných cvikov. Môže byť "muz" alebo "zena".
+     * @param urovenSkusenosti    Úroveň skúseností pre výber vhodných cvikov. Môže byť "zaciatocnik", "stredne-pokrocily" alebo "pokrocily".
+     * @param hodnotaCasu         Hodnota času pre nastavenie doby trvania cviku.
+     * @return                    Zoznam cvikov vytvorených na základe zvolených parametrov.
+     */
     fun vytvorTreningovyPlan(pohlavie: String, urovenSkusenosti: String, hodnotaCasu: Int): List<Cvik> {
         val cviky = mutableListOf<Cvik>()
         if (pohlavie == "muz") {

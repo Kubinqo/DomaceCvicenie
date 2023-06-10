@@ -4,12 +4,17 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Intent
 import android.content.SharedPreferences
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 
+/**
+ * Aktivita slúžiaca na výber obtiažnosti tréningového plánu.
+ * Umožňuje používateľovi vybrať jednu z troch možných obtiažností:
+ * zaciatocnik, stredne-pokrocily, pokrocily.
+ * Po výbere obtiažnosti je možné prejsť na ďalšiu aktivitu pomocou tlačidla "Hotovo".
+ */
 class VyberPocetKlikov : AppCompatActivity() {
 
     private var isImageZaciatocnikSelected = false
@@ -25,15 +30,29 @@ class VyberPocetKlikov : AppCompatActivity() {
         private const val KEY_OBTIAZNOST = "obtiaznost"
         private lateinit var sharedPreferences: SharedPreferences
 
+        /**
+         * Metóda slúžiaca na získanie uloženej hodnoty premennej obtiaznost z SharedPreferences.
+         *
+         * @return hodnota premennej obtiaznost
+         */
         fun getObtiaznost(): String {
             return sharedPreferences.getString(KEY_OBTIAZNOST, "") ?: ""
         }
 
+        /**
+         * Metóda slúžiaca na uloženie hodnoty premennej obtiaznost do SharedPreferences.
+         *
+         * @param obtiaznost hodnota premennej obtiaznost
+         */
         fun setObtiaznost(obtiaznost: String) {
             sharedPreferences.edit().putString(KEY_OBTIAZNOST, obtiaznost).apply()
         }
     }
 
+    /**
+     * Metóda sa volá pri vytvorení aktivity.
+     * Inicializuje sa UI, pridávajú sa listenery pre kliknutia a kontroluje sa uložená hodnota premennej obtiaznost.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_vyber_pocet_klikov)
@@ -47,14 +66,11 @@ class VyberPocetKlikov : AppCompatActivity() {
         buttonHotovo.alpha = 0.5f
         buttonHotovo.isEnabled = false
 
-        // Inicializácia SharedPreferences
         sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
 
-        // Kontrola, či bola hodnota premennej obtiaznost uložená
+        // Kontrola, ci bola hodnota premennej obtiaznost ulozena
         val savedObtiaznost = getObtiaznost()
         if (savedObtiaznost.isNotEmpty()) {
-            // Premenná obtiaznost bola uložená, môžete vykonať príslušnú logiku
-            // napríklad zobraziť ďalšiu aktivitu
             val intent = Intent(this, Apka::class.java)
             startActivity(intent)
             finish()
@@ -131,14 +147,18 @@ class VyberPocetKlikov : AppCompatActivity() {
         }
     }
 
+    /**
+     * Metóda onDestroy sa volá pri ukončení aktivity.
+     * Uloží sa hodnota premennej obtiaznost pomocou metódy setObtiaznost.
+     */
     override fun onDestroy() {
-        // Uloženie hodnoty premennej obtiaznost pri ukončení aktivity
         setObtiaznost(getObtiaznost())
         super.onDestroy()
     }
 
-    //Funkcia, ktora zmensi velkost ImageView pomocou animacie
-    //Ak nie, tlacidlo "Dalej" bude deaktivovane.
+    /**
+     * Funkcia, ktorá zmenší veľkosť ImageView pomocou animácie.
+     */
     private fun scaleImage(imageView: ImageView) {
         val animSet = AnimatorSet()
         val scaleX = ObjectAnimator.ofFloat(imageView, "scaleX", 0.8f)
@@ -148,7 +168,9 @@ class VyberPocetKlikov : AppCompatActivity() {
         animSet.start()
     }
 
-    //Funkcia, ktora resetuje velkosť ImageView pomocou animacie
+    /**
+     * Funkcia, ktorá obnoví veľkosť ImageView pomocou animácie.
+     */
     private fun resetImage(imageView: ImageView) {
         val animSet = AnimatorSet()
         val scaleX = ObjectAnimator.ofFloat(imageView, "scaleX", 1f)
@@ -158,14 +180,14 @@ class VyberPocetKlikov : AppCompatActivity() {
         animSet.start()
     }
 
-    //Funkcia kontroluje, ci je aspon jeden z obrazkov "Muz" a "Zena" zvacseny.
+    /**
+     * Funkcia, ktorá kontroluje, či je aspoň jeden z obrazkov "zaciatocnik", "stredne-pokrocily" alebo "pokrocily" zväčšený.
+     * Ak nie je žiadny zväčšený, tlačidlo "Hotovo" bude deaktivované.
+     */
     private fun checkImagesScaled() {
         if (!isImageZaciatocnikSelected && !isImageStrednePokrocilySelected && !isImagePokrocilySelected) {
             buttonHotovo.alpha = 0.5f
             buttonHotovo.isEnabled = false
         }
     }
-
-
-
 }

@@ -9,7 +9,12 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 
-
+/**
+ * Aktivita slúžiaca na výber pohlavia tréningového plánu.
+ * Umožňuje používateľovi vybrať jednu z dvoch možných obtiažností:
+ * muž alebo žena.
+ * Po výbere obtiažnosti je možné prejsť na ďalšiu aktivitu pomocou tlačidla "Ďalej".
+ */
 class VyberPohlavia : AppCompatActivity() {
 
     private var isImageMuzSelected = false
@@ -23,29 +28,42 @@ class VyberPohlavia : AppCompatActivity() {
         private const val KEY_VYBRANE_POHLAVIE = "vybrane_pohlavie"
         private lateinit var sharedPreferences: SharedPreferences
 
+        /**
+         * Vráti vybrané pohlavie používateľa.
+         *
+         * @return vybrané pohlavie
+         */
         fun getVybranePohlavie(): String {
             return sharedPreferences.getString(KEY_VYBRANE_POHLAVIE, "") ?: ""
         }
 
+        /**
+         * Nastaví vybrané pohlavie používateľa.
+         *
+         * @param pohlavie vybrané pohlavie
+         */
         fun setVybranePohlavie(pohlavie: String) {
             sharedPreferences.edit().putString(KEY_VYBRANE_POHLAVIE, pohlavie).apply()
         }
     }
 
+    /**
+     * Metóda sa volá pri vytvorení aktivity.
+     * Inicializuje sa UI, pridávajú sa listenery pre kliknutia a kontroluje sa uložená hodnota premennej pohlavie.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_vyber_pohlavia)
 
         sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
 
-        // Kontrola, či bola hodnota vybraného pohlavia uložená
+        // Kontrola, ci bola hodnota vybraneho pohlavia ulozena
         val vybranePohlavie = getVybranePohlavie()
         if (vybranePohlavie.isNotEmpty()) {
             spustiDalsiuAktivitu()
             return
         }
 
-        // Pokračovanie s bežným priebehom aktivity
         muz = findViewById(R.id.pohlavieMuzView)
         zena = findViewById(R.id.pohlavieZenaView)
         buttonDalej = findViewById(R.id.dalejBtn)
@@ -102,14 +120,20 @@ class VyberPohlavia : AppCompatActivity() {
         }
     }
 
+    /**
+     * Spustí ďalšiu aktivitu.
+     */
     private fun spustiDalsiuAktivitu() {
         val intent = Intent(this, VyberPocetKlikov::class.java)
         startActivity(intent)
         finish()
     }
 
-    //Funkcia, ktora zmensi velkost ImageView pomocou animacie
-    //Ak nie, tlacidlo "Dalej" bude deaktivovane.
+    /**
+     * Funkcia, ktorá zmenší veľkosť ImageView pomocou animácie.
+     *
+     * @param imageView ImageView, ktorého veľkosť sa zmení
+     */
     private fun scaleImage(imageView: ImageView) {
         val animSet = AnimatorSet()
         val scaleX = ObjectAnimator.ofFloat(imageView, "scaleX", 0.8f)
@@ -119,7 +143,11 @@ class VyberPohlavia : AppCompatActivity() {
         animSet.start()
     }
 
-    //Funkcia, ktora resetuje velkosť ImageView pomocou animacie
+    /**
+     * Funkcia, ktorá obnoví veľkosť ImageView pomocou animácie.
+     *
+     * @param imageView ImageView, ktorého veľkosť sa obnoví
+     */
     private fun resetImage(imageView: ImageView) {
         val animSet = AnimatorSet()
         val scaleX = ObjectAnimator.ofFloat(imageView, "scaleX", 1f)
@@ -129,7 +157,10 @@ class VyberPohlavia : AppCompatActivity() {
         animSet.start()
     }
 
-    //Funkcia kontroluje, ci je aspon jeden z obrazkov "Muz" a "Zena" zvacseny.
+    /**
+     * Funkcia kontroluje, či je aspoň jeden z obrazkov "Muž" a "Žena" je zväčšený.
+     * Ak nie, tlačidlo "Ďalej" bude deaktivované.
+     */
     private fun checkImagesScaled() {
         if (!isImageMuzSelected && !isImageZenaSelected) {
             buttonDalej.alpha = 0.5f

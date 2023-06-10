@@ -1,7 +1,6 @@
 package com.example.domacecviceniasvlastnouvahou
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.media.AudioManager
 import androidx.appcompat.app.AppCompatActivity
@@ -14,18 +13,26 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.SeekBar
 
+/**
+ * Aktivita pre nastavenia aplikácie.
+ */
 class Settings : AppCompatActivity() {
     private lateinit var audioManager: AudioManager
     private lateinit var volumeSeekBar: SeekBar
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var settingsManager: SettingsManager
-
     private lateinit var treningImgView: ImageView
     companion object {
         private const val DEFAULT_CASOVY_LIMIT = 30
         private const val PREFS_NAME = "MyPrefs"
         private const val KEY_CASOVY_LIMIT = "casovyLimit"
     }
+
+    /**
+     * Metóda `onCreate` sa volá pri vytvorení aktivity `Settings`.
+     *
+     * @param savedInstanceState Uchováva stav aktivity v prípade obnovenia.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
@@ -39,15 +46,17 @@ class Settings : AppCompatActivity() {
         sharedPreferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         val casovyLimitEditText = findViewById<EditText>(R.id.timeLimitEditText)
 
-        // Nastavenie aktuálnej hodnoty hlasitosti
+        // Nastavenie aktualnej hodnoty hlasitosti
         val currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
         volumeSeekBar.progress = currentVolume
 
-        // Nastavenie maximálnej hodnoty hlasitosti
+        // Nastavenie maximalnej hodnoty hlasitosti
         val maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
         volumeSeekBar.max = maxVolume
 
-        // Nastavenie poslucháča pre zmenu hodnoty hlasitosti
+        /**
+         * Nastavenie poslúchača pre zmenu hodnoty hlasitosti
+         */
         volumeSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 if (fromUser) {
@@ -55,25 +64,44 @@ class Settings : AppCompatActivity() {
                 }
             }
 
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                // Metóda sa volá, keď používateľ začne meniť hodnotu hlasitosti
-            }
+            /**
+             * Metóda sa volá, keď používateľ začne meniť hodnotu hlasitosti
+             */
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
 
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                // Metóda sa volá, keď používateľ skončí meniť hodnotu hlasitosti
-            }
+            /**
+             * Metóda sa volá, keď používateľ prestane meniť hodnotu hlasitosti
+             */
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
         })
 
-
-        // Získajte uloženú hodnotu časového limitu
+        /**
+         * Získa uloženú hodnotu časového limitu
+         */
         val savedCasovyLimit = sharedPreferences.getInt(KEY_CASOVY_LIMIT, DEFAULT_CASOVY_LIMIT)
         casovyLimitEditText.setText(savedCasovyLimit.toString())
 
+        /**
+         * Nastavenie poslúchača pre zmenu hodnoty času
+         */
         casovyLimitEditText.addTextChangedListener(object : TextWatcher {
+
+            /**
+             * Metóda sa volá pred zmenou textu v poli EditText
+             */
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
+            /**
+             * Metoda sa vola počas zmeny textu v poli EditText
+             */
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
+            /**
+             * Táto metóda sa volá po dokončení zmeny textu v poli EditText.
+             * Získava text z EditText a ukladá ho ako časový limit, ak je k dispozícii,
+             * ak nie je k dispozícii žiadny text, používa predvolený časový limit.
+             * Ukladá nový časový limit volaním metódy saveCasovyLimit(casovyLimit)
+             */
             override fun afterTextChanged(s: Editable?) {
                 val casovyLimitText = casovyLimitEditText.text.toString()
                 val casovyLimit = if (casovyLimitText.isNotEmpty()) {
@@ -89,20 +117,41 @@ class Settings : AppCompatActivity() {
             animateImageView(treningImgView)
             finish()
         }
-
     }
+
+    /**
+     * Spustí animáciu na zmenšenie a následne zväčšenie zadaného obrázka.
+     *
+     * @param imageView obrázok, na ktorom sa má animácia spustiť
+     */
     private fun animateImageView(imageView: ImageView) {
         val scaleDownAnimation = AnimationUtils.loadAnimation(this, R.anim.scale_down)
         val scaleUpAnimation = AnimationUtils.loadAnimation(this, R.anim.scale_up)
 
-        // Zachyťte udalosti animácie pre vrátenie obrazka do pôvodnej veľkosti po skončení animácie zväčšenia
+        /**
+         * Zachytenie udalosti animácie pre vrátenie obrazka do pôvodnej veľkosti po skončení animácie zväčšenia
+         */
         scaleUpAnimation.setAnimationListener(object : Animation.AnimationListener {
+
+            /**
+             * Metóda sa volá na začiatku animácie.
+             *
+             * @param animation Animácia, ktorá sa spustila.
+             */
             override fun onAnimationStart(animation: Animation) {}
 
-            override fun onAnimationEnd(animation: Animation) {
-                // Nastavenia po skončení animácie zväčšenia (napr. zmena zdroja obrazka)
-            }
+            /**
+             * Metóda sa volá po skončení animácie.
+             *
+             * @param animation Animácia, ktorá skončila.
+             */
+            override fun onAnimationEnd(animation: Animation) {}
 
+            /**
+             * Metóda sa volá pri opakovaní animácie.
+             *
+             * @param animation Animácia, ktorá sa opakuje.
+             */
             override fun onAnimationRepeat(animation: Animation) {}
         })
 
@@ -110,8 +159,12 @@ class Settings : AppCompatActivity() {
         imageView.startAnimation(scaleUpAnimation)
     }
 
+    /**
+     * Uloží časový limit do správcu nastavení.
+     *
+     * @param casovyLimit časový limit na uloženie
+     */
     private fun saveCasovyLimit(casovyLimit: Int) {
         settingsManager.saveCasovyLimit(casovyLimit)
     }
-
 }

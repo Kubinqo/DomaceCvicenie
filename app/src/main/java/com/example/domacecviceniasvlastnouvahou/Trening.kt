@@ -13,6 +13,9 @@ import android.widget.MediaController
 import android.widget.TextView
 import android.widget.VideoView
 
+/**
+ * Aktivita zobrazuje cviky a riadi priebeh tréningu.
+ */
 class Trening : AppCompatActivity() {
 
     private lateinit var nazovCvikuTextView: TextView
@@ -25,9 +28,13 @@ class Trening : AppCompatActivity() {
     private var casovac: CountDownTimer? = null
     private var startTime: Long = 0
     private var endTime: Long = 0
-
     private lateinit var settingsManager: SettingsManager
 
+    /**
+     * Metóda sa volá pri vytvorení aktivity `Trening`.
+     *
+     * @param savedInstanceState Uchováva stav aktivity v prípade obnovenia.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_trening)
@@ -52,6 +59,9 @@ class Trening : AppCompatActivity() {
         }
     }
 
+    /**
+     * Metóda spúšťa tréning.
+     */
     private fun zacniTrening() {
         // Získajte aktuálny čas pri začiatku tréningu
         startTime = System.currentTimeMillis()
@@ -65,6 +75,10 @@ class Trening : AppCompatActivity() {
 
         zobrazCvik()
     }
+
+    /**
+     * Metóda zobrazuje aktuálny cvik a riadi jeho prehrávanie.
+     */
     private fun zobrazCvik() {
         if (currentIndex < cvikyList.size) {
             val cvik = cvikyList[currentIndex]
@@ -106,6 +120,9 @@ class Trening : AppCompatActivity() {
         }
     }
 
+    /**
+     * Metóda zobrazuje nasledujúci cvik po ukončení aktuálneho.
+     */
     private fun zobrazDalsiCvik() {
         currentIndex++
         val mediaPlayer = MediaPlayer.create(this, R.raw.pisk)
@@ -113,11 +130,17 @@ class Trening : AppCompatActivity() {
         zobrazCvik()
     }
 
+    /**
+     * Metóda ukončuje aktuálny cvik a prechádza na nasledujúci cvik.
+     */
     private fun ukonciCvik() {
         casovac?.cancel()
         zobrazDalsiCvik()
     }
 
+    /**
+     * Metóda ukončuje tréning a prechádza späť do aktivity `Apka`.
+     */
     private fun ukonciTrening() {
         // Získajte aktuálny čas pri ukončení tréningu
         endTime = System.currentTimeMillis()
