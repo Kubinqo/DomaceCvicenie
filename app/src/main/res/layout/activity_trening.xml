@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -6,37 +6,45 @@
     android:padding="16dp"
     tools:context=".Trening">
 
-    <TextView
-        android:id="@+id/nazovCvikuTextViewT"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:layout_marginBottom="16dp" />
-
     <VideoView
         android:id="@+id/videoView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginBottom="100dp" />
 
     <TextView
-        android:id="@+id/popisCvikuTextViewT"
+        android:id="@+id/nazovCvikuTextViewT"
+        android:layout_below="@+id/videoView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="34sp"
+        android:layout_marginTop="0dp"
+        android:layout_centerHorizontal="true"
         android:gravity="center"
-        android:layout_marginBottom="16dp" />
+        android:textColor="#000000"
+        android:textSize="27sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/popisCvikuTextViewT"
+        android:layout_below="@+id/nazovCvikuTextViewT"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:textColor="#000000"
+        android:textSize="34sp" />
 
     <Button
         android:id="@+id/hotovoButton"
+        android:layout_below="@+id/popisCvikuTextViewT"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:layout_centerHorizontal="true"
         android:backgroundTint="#2196F3"
-        android:textStyle="bold"
         android:text="Hotovo"
-        android:textColor="#FFFFFF"/>
+        android:textColor="#FFFFFF"
+        android:textStyle="bold" />
 
-</LinearLayout>
+</RelativeLayout>
