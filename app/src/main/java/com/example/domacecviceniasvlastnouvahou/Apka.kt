@@ -1,16 +1,25 @@
 package com.example.domacecviceniasvlastnouvahou
 
-import NotificationHelper
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
+import androidx.core.app.NotificationManagerCompat
+import androidx.work.OneTimeWorkRequest
+import androidx.work.WorkManager
+import androidx.work.WorkRequest
 import java.util.concurrent.TimeUnit
+import androidx.work.*
+
+
 
 /**
  * Aktivita Apka je hlavnou aktivitou aplikácie domáce cvičenia so vlastnou váhou.
@@ -21,9 +30,6 @@ class Apka : AppCompatActivity() {
     private lateinit var workoutImgViewA: ImageView
     private lateinit var casTreninguTextView: TextView
     private lateinit var nastaveniaImgView: ImageView
-    private lateinit var notificationHelper: NotificationHelper
-    private val handler = Handler(Looper.getMainLooper())
-    private val checkInterval = 5 * 1000
 
     /**
      * Metóda sa volá pri vytvorení inštancie aktivity Apka.
@@ -32,11 +38,11 @@ class Apka : AppCompatActivity() {
      *
      * @param savedInstanceState Uložený stav inštancie aktivity.
      */
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        notificationHelper = NotificationHelper(this)
 
         workoutImgViewA = findViewById(R.id.workoutImgView)
         nastaveniaImgView = findViewById(R.id.nastaveniaImgView)
@@ -60,48 +66,36 @@ class Apka : AppCompatActivity() {
             val intent = Intent(this, Settings::class.java)
             startActivity(intent)
         }
+
+        // Vytvorenie notifikačného kanála
+        val defaultNotifications = NotificationChannel("default", "Notifikacie", NotificationManager.IMPORTANCE_DEFAULT)
+        defaultNotifications.lockscreenVisibility = Notification.VISIBILITY_PUBLIC
+        defaultNotifications.setShowBadge(true)
+        val notificationManager = NotificationManagerCompat.from(this)
+        notificationManager.createNotificationChannels(listOf(defaultNotifications))
+
     }
 
     /**
-    * Metóda sa volá pri zastavení aktivity Apka.
-    * Spúšťa kontrolu spokojnosti a nastavuje interval pre kontrolu.
-    */
+     * Metóda sa volá pri zastavení aktivity Apka.
+     * Spúšťa kontrolu spokojnosti a nastavuje interval pre kontrolu.
+     */
     override fun onStop() {
         super.onStop()
-        startSatisfactionCheck()
+        notifikacia()
     }
 
     /**
-     * Metóda sa volá pri zničení aktivity Apka.
-     * Odstraňuje spúšťateľný objekt pre kontrolu spokojnosti z handlera.
+     * Metóda vytvorí a spustí WorkRequest pre notifikáciu.
      */
-    override fun onDestroy() {
-        super.onDestroy()
-        handler.removeCallbacks(checkSatisfactionRunnable)
-    }
+    private fun notifikacia() {
+        val constraints: Constraints = Constraints.Builder().build()
+        val myWorkRequest: WorkRequest = OneTimeWorkRequest.Builder(NotificationWorker::class.java)
+            .setConstraints(constraints)
+            .setInitialDelay(5, TimeUnit.SECONDS)
+            .build()
+        WorkManager.getInstance(this).enqueue(myWorkRequest)
 
-    /**
-     * Vykonáva kontrolu spokojnosti a nastavuje opakované spustenie po určenom časovom intervale.
-     */
-    private val checkSatisfactionRunnable = object : Runnable {
-        override fun run() {
-            checkSatisfaction()
-            handler.postDelayed(this, checkInterval.toLong())
-        }
-    }
-
-    /**
-     * Nastavuje spúšťateľný objekt pre kontrolu spokojnosti s určeným časovým intervalom.
-     */
-    private fun startSatisfactionCheck() {
-        handler.postDelayed(checkSatisfactionRunnable, checkInterval.toLong())
-    }
-
-    /**
-     * Zobrazuje oznámenie o spokojnosti pomocou NotificationHelper.
-     */
-    private fun checkSatisfaction() {
-        notificationHelper.showAppSatisfactionNotification()
     }
 
     /**
