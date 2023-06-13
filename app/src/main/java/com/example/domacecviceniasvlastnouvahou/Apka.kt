@@ -77,11 +77,11 @@ class Apka : AppCompatActivity() {
     }
 
     /**
-     * Metóda sa volá pri zničení aktivity Apka.
+     * Metóda sa volá pri zastavení aktivity Apka.
      * Spúšťa oznámenie o spokojnosti s aplikáciou užívateľovi.
      */
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onStop() {
+        super.onStop()
         notifikacia()
     }
 

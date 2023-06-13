@@ -20,7 +20,7 @@ class TreningovyPlan {
         if (pohlavie == "muz") {
             when (urovenSkusenosti) {
                 "zaciatocnik" -> {
-                    cviky.add(Cvik(R.drawable.jumping_jacks, "Jumping Jacks", "${hodnotaCasu}s", "jumping_jacks"))
+                    cviky.add(Cvik(R.drawable.jumping_jacks, "Jumping jacks", "${hodnotaCasu}s", "jumping_jacks"))
                     cviky.add(Cvik(R.drawable.mountain_climber, "Mountain climber", "x10", "mountain_climber"))
                     cviky.add(Cvik(R.drawable.push_ups, "Push-ups", "x5", "push_ups"))
                     cviky.add(Cvik(R.drawable.triceps_dips, "Triceps dips", "x8", "triceps_dips"))
@@ -31,7 +31,7 @@ class TreningovyPlan {
                     cviky.add(Cvik(R.drawable.squat, "Squats", "x18", "squats"))
                 }
                 "stredne-pokrocily" -> {
-                    cviky.add(Cvik(R.drawable.jumping_jacks, "Jumping Jacks", "${hodnotaCasu}s", "jumping_jacks"))
+                    cviky.add(Cvik(R.drawable.jumping_jacks, "Jumping jacks", "${hodnotaCasu}s", "jumping_jacks"))
                     cviky.add(Cvik(R.drawable.mountain_climber, "Mountain climber", "x12", "mountain_climber"))
                     cviky.add(Cvik(R.drawable.push_ups, "Push-ups", "x10", "push_ups"))
                     cviky.add(Cvik(R.drawable.triceps_dips, "Triceps dips", "x14", "triceps_dips"))
@@ -42,7 +42,7 @@ class TreningovyPlan {
                     cviky.add(Cvik(R.drawable.squat, "Squats", "x22", "squats"))
                 }
                 "pokrocily" -> {
-                    cviky.add(Cvik(R.drawable.jumping_jacks, "Jumping Jacks", "${hodnotaCasu}s", "jumping_jacks"))
+                    cviky.add(Cvik(R.drawable.jumping_jacks, "Jumping jacks", "${hodnotaCasu}s", "jumping_jacks"))
                     cviky.add(Cvik(R.drawable.mountain_climber, "Mountain climber", "x14", "mountain_climber"))
                     cviky.add(Cvik(R.drawable.push_ups, "Push-ups", "x15", "push_ups"))
                     cviky.add(Cvik(R.drawable.triceps_dips, "Triceps dips", "x20", "triceps_dips"))
@@ -56,7 +56,7 @@ class TreningovyPlan {
         } else if (pohlavie == "zena") {
             when (urovenSkusenosti) {
                 "zaciatocnik" -> {
-                    cviky.add(Cvik(R.drawable.jumping_jacks, "Jumping Jacks", "${hodnotaCasu}s", "jumping_jacks"))
+                    cviky.add(Cvik(R.drawable.jumping_jacks, "Jumping jacks", "${hodnotaCasu}s", "jumping_jacks"))
                     cviky.add(Cvik(R.drawable.mountain_climber, "Mountain climber", "x12", "mountain_climber"))
                     cviky.add(Cvik(R.drawable.push_ups, "Push-ups", "x3", "push_ups"))
                     cviky.add(Cvik(R.drawable.triceps_dips, "Triceps dips", "x6", "triceps_dips"))
@@ -67,7 +67,7 @@ class TreningovyPlan {
                     cviky.add(Cvik(R.drawable.squat, "Squats", "x22", "squats"))
                 }
                 "stredne-pokrocily" -> {
-                    cviky.add(Cvik(R.drawable.jumping_jacks, "Jumping Jacks", "${hodnotaCasu}s", "jumping_jacks"))
+                    cviky.add(Cvik(R.drawable.jumping_jacks, "Jumping jacks", "${hodnotaCasu}s", "jumping_jacks"))
                     cviky.add(Cvik(R.drawable.mountain_climber, "Mountain climber", "x14", "mountain_climber"))
                     cviky.add(Cvik(R.drawable.push_ups, "Push-ups", "x6", "push_ups"))
                     cviky.add(Cvik(R.drawable.triceps_dips, "Triceps dips", "x12", "triceps_dips"))
@@ -78,7 +78,7 @@ class TreningovyPlan {
                     cviky.add(Cvik(R.drawable.squat, "Squats", "x28", "squats"))
                 }
                 "pokrocily" -> {
-                    cviky.add(Cvik(R.drawable.jumping_jacks, "Jumping Jacks", "${hodnotaCasu}s", "jumping_jacks"))
+                    cviky.add(Cvik(R.drawable.jumping_jacks, "Jumping jacks", "${hodnotaCasu}s", "jumping_jacks"))
                     cviky.add(Cvik(R.drawable.mountain_climber, "Mountain climber", "x16", "mountain_climber"))
                     cviky.add(Cvik(R.drawable.push_ups, "Push-ups", "x9", "push_ups"))
                     cviky.add(Cvik(R.drawable.triceps_dips, "Triceps dips", "x18", "triceps_dips"))

@@ -21,7 +21,7 @@ class NotificationWorker(val context: Context, params: WorkerParameters) : Worke
         val notification = NotificationCompat.Builder(context, "default").apply {
             setContentTitle("Ako sa vám páči naša aplikácia?")
                 .setContentText("Ohodnoťte ju prosím na Play Store.")
-                .setSmallIcon(R.drawable.triceps_dips)
+                .setSmallIcon(R.drawable.logo)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
         }.build()
