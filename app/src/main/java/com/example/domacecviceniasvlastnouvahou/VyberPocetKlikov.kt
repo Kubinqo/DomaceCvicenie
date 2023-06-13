@@ -33,7 +33,7 @@ class VyberPocetKlikov : AppCompatActivity() {
         /**
          * Metóda slúžiaca na získanie uloženej hodnoty premennej obtiaznost z SharedPreferences.
          *
-         * @return hodnota premennej obtiaznost
+         * @return Hodnota premennej obtiaznost
          */
         fun getObtiaznost(): String {
             return sharedPreferences.getString(KEY_OBTIAZNOST, "") ?: ""
@@ -42,7 +42,7 @@ class VyberPocetKlikov : AppCompatActivity() {
         /**
          * Metóda slúžiaca na uloženie hodnoty premennej obtiaznost do SharedPreferences.
          *
-         * @param obtiaznost hodnota premennej obtiaznost
+         * @param obtiaznost Hodnota premennej obtiaznost
          */
         fun setObtiaznost(obtiaznost: String) {
             sharedPreferences.edit().putString(KEY_OBTIAZNOST, obtiaznost).apply()

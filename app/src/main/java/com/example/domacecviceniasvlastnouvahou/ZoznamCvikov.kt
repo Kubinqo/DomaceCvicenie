@@ -48,7 +48,7 @@ class ZoznamCvikov : AppCompatActivity() {
     /**
      * Získa zoznam cvikov pre zobrazenie v RecyclerView.
      *
-     * @return zoznam cvikov
+     * @return Zoznam cvikov
      */
     fun getCvikyList(): List<Cvik> {
         val cviky = mutableListOf<Cvik>()

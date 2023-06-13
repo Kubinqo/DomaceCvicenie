@@ -122,7 +122,7 @@ class Settings : AppCompatActivity() {
     /**
      * Spustí animáciu na zmenšenie a následne zväčšenie zadaného obrázka.
      *
-     * @param imageView obrázok, na ktorom sa má animácia spustiť
+     * @param imageView Obrázok, na ktorom sa má animácia spustiť
      */
     private fun animateImageView(imageView: ImageView) {
         val scaleDownAnimation = AnimationUtils.loadAnimation(this, R.anim.scale_down)
@@ -162,7 +162,7 @@ class Settings : AppCompatActivity() {
     /**
      * Uloží časový limit do správcu nastavení.
      *
-     * @param casovyLimit časový limit na uloženie
+     * @param casovyLimit Časový limit na uloženie
      */
     private fun saveCasovyLimit(casovyLimit: Int) {
         settingsManager.saveCasovyLimit(casovyLimit)

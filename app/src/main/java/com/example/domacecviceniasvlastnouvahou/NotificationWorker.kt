@@ -10,8 +10,21 @@ import androidx.core.app.*
 import androidx.work.*
 import kotlin.random.Random
 
+/**
+ * Trieda pre notifikácie, ktorá sa vykonáva pomocou WorkManager.
+ * Táto trieda vytvára notifikáciu s odkazom na stránku obchodu s aplikáciami.
+ *
+ * @property context Kontext aktuálnej aplikácie.
+ * @property params Parametre práce pre WorkManager.
+ */
 
 class NotificationWorker(val context: Context, params: WorkerParameters) : Worker(context, params) {
+
+    /**
+     * Metóda definuje notifikáciu.
+     *
+     * @return Výslednú notifikáciu.
+     */
     override fun doWork(): Result {
         // Vytvorte notifikáciu s odkazom na stránku obchodu s aplikáciami
         val intent = Intent(Intent.ACTION_VIEW)
@@ -32,5 +45,4 @@ class NotificationWorker(val context: Context, params: WorkerParameters) : Worke
 
         return Result.success()
     }
-
 }
